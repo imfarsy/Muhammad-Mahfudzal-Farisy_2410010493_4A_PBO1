@@ -45,7 +45,7 @@ public class Main {
             //strutktur seleksi
             switch (pilihan) {
                 case 1:
-                    System.out.println("--- DAFTAR JALUR PENDAKIAN MASTER DATA ---");
+                    System.out.println("--- DAFTAR JALUR PENDAKIAN POPULER KALSEL ---");
                     for (int i = 0; i < daftarGunung.length; i++) {
                         System.out.println("[" + (i + 1) + "]");
                         daftarGunung[i].tampilInfo();
@@ -73,7 +73,7 @@ public class Main {
                     break;
 
                 case 3:
-                    System.out.println("--- FORM REGISTRASI BOOKING GRUP ---");
+                    System.out.println("--- FORM REGISTRASI PENDAKIAN ---");
                     System.out.print("Masukkan Nama Ketua Kelompok : ");
                     String namaKetua = input.nextLine();
 
