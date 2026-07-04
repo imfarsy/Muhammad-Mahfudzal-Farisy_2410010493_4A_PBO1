@@ -72,7 +72,6 @@ public class Main {
     public static void main(String[] args) {
         JalurPendakian[] daftarGunung = { ... };
         RegistrasiPendaki[] riwayatBooking = new RegistrasiPendaki[100];
-        // Perulangan do-while & Switch Case Menu
     }
 }
 ```
