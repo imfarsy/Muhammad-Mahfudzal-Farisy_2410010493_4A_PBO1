@@ -1,53 +1,54 @@
-<<<<<<< HEAD
 package pendakian;
 
 //inheritance
 public class RegistrasiPendaki extends JalurPendakian {
+
     private String namaKetua;
     private int jumlahPendaki;
+    private final double ASURANSI_PER_ORANG = 5000.0;
 
-    //constructor child class
-    public RegistrasiPendaki(String namaGunung, int ketinggian, String lokasi, double hargaSimaksi, String namaKetua, int jumlahPendaki) {
+    //constructor
+    public RegistrasiPendaki(String namaGunung, int ketinggian, String lokasi, double hargaSimaksi, 
+                             String namaKetua, int jumlahPendaki) {
         super(namaGunung, ketinggian, lokasi, hargaSimaksi);
         this.namaKetua = namaKetua;
         this.jumlahPendaki = jumlahPendaki;
     }
 
-    //getter and setter
-    public String getNamaKetua() { return namaKetua; }
-    public int getJumlahPendaki() { return jumlahPendaki; }
-
-    //polymorphism
+    //overriding
     @Override
     public double hitungTotalBiaya(int jumlahPendaki) {
-        double biayaAsuransiWajib = 5000 * jumlahPendaki;
-        return super.hitungTotalBiaya(jumlahPendaki) + biayaAsuransiWajib; 
-    }
-}
-=======
-package pendakian;
-
-//inheritance
-public class RegistrasiPendaki extends JalurPendakian {
-    private String namaKetua;
-    private int jumlahPendaki;
-
-    //constructor child class
-    public RegistrasiPendaki(String namaGunung, int ketinggian, String lokasi, double hargaSimaksi, String namaKetua, int jumlahPendaki) {
-        super(namaGunung, ketinggian, lokasi, hargaSimaksi);
-        this.namaKetua = namaKetua;
-        this.jumlahPendaki = jumlahPendaki;
+        double biayaSimaksiMurni = super.hitungTotalBiaya(jumlahPendaki);
+        double totalAsuransi = ASURANSI_PER_ORANG * jumlahPendaki;
+        return biayaSimaksiMurni + totalAsuransi;
     }
 
-    //getter and setter
-    public String getNamaKetua() { return namaKetua; }
-    public int getJumlahPendaki() { return jumlahPendaki; }
-
-    //polymorphism
+    // overriding tampilInfo()
     @Override
-    public double hitungTotalBiaya(int jumlahPendaki) {
-        double biayaAsuransiWajib = 5000 * jumlahPendaki;
-        return super.hitungTotalBiaya(jumlahPendaki) + biayaAsuransiWajib; 
+    public void tampilInfo() {
+        System.out.println("==========================================");
+        System.out.println("       NOTA REGISTRASI SIMAKSI MERATUS    ");
+        System.out.println("==========================================");
+        System.out.println("Nama Ketua Kelompok : " + namaKetua);
+        System.out.println("Jumlah Anggota/Grup : " + jumlahPendaki + " orang");
+        super.tampilInfo();
+        System.out.println("Tambahan Asuransi   : Rp " + (ASURANSI_PER_ORANG * jumlahPendaki) + " (Rp 5.000 / org)");
+        System.out.println("------------------------------------------");
+        System.out.println("TOTAL BAYAR SIMAKSI : Rp " + hitungTotalBiaya(this.jumlahPendaki));
+        
+        System.out.print("Rekomendasi Alat    : ");
+        if (getKetinggian() >= 1000) {
+            System.out.println("Wajib membawa Tenda Dome, Carrier min 60L, Sleeping Bag tebal, & Jaket Windproof.");
+        } else {
+            System.out.println("Cukup membawa Tenda Kapasitas Kecil, Daypack, Masker Debu, & Sepatu Grip Standar.");
+        }
+        System.out.println("==========================================\n");
     }
+
+    //getter dan setter
+    public String getNamaKetua() { return namaKetua; }
+    public void setNamaKetua(String namaKetua) { this.namaKetua = namaKetua; }
+
+    public int getJumlahPendaki() { return jumlahPendaki; }
+    public void setJumlahPendaki(int jumlahPendaki) { this.jumlahPendaki = jumlahPendaki; }
 }
->>>>>>> ad8d2e87a87f1a76f6d58c10f2f90c576dc5fb7a
