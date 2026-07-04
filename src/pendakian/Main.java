@@ -188,6 +188,6 @@ public class Main {
 
         } while (pilihan != 6);
 
-        input.close();
+        input.close(); 
     }
 }

@@ -20,6 +20,6 @@ public class RegistrasiPendaki extends JalurPendakian {
     @Override
     public double hitungTotalBiaya(int jumlahPendaki) {
         double biayaAsuransiWajib = 5000 * jumlahPendaki;
-        return super.hitungTotalBiaya(jumlahPendaki) + biayaAsuransiWajib;
+        return super.hitungTotalBiaya(jumlahPendaki) + biayaAsuransiWajib; 
     }
 }

@@ -6,7 +6,7 @@ public class JalurPendakian {
     private String namaGunung;
     private int ketinggian;
     private String lokasi;
-    private double hargaSimaksi;
+    private double hargaSimaksi; 
 
     //constructor
     public JalurPendakian(String namaGunung, int ketinggian, String lokasi, double hargaSimaksi) {
