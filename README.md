@@ -1,152 +1,166 @@
-
 # Proyek Akhir Pemrograman Berorientasi Objek 1
 
-# SummitRent
-## Sistem Penyewaan Alat Pendakian Gunung Berbasis Java
+# MeratusHiking
+## Sistem Registrasi & Booking Jalur Pendakian Gunung Berbasis Java
 
 ---
 
 # Deskripsi Proyek
-SummitRent adalah aplikasi berbasis Java (console) yang dibuat sebagai Proyek Akhir mata kuliah Pemrograman Berorientasi Objek 1 (PBO1). Aplikasi ini mensimulasikan proses penyewaan alat pendakian gunung mulai dari melihat data alat, melakukan penyewaan, hingga menampilkan transaksi.
+MeratusHiking adalah aplikasi berbasis Java (console) yang dibuat sebagai Proyek Akhir mata kuliah Pemrograman Berorientasi Objek 1 (PBO1). Aplikasi ini mensimulasikan proses manajemen registrasi izin masuk (SIMAKSI) untuk rombongan yang ingin mendaki gunung atau bukit populer di kawasan Pegunungan Meratus, Kalimantan Selatan.
 
 # Latar Belakang
-Banyak pendaki tidak memiliki seluruh perlengkapan sehingga memilih menyewa alat. Berdasarkan studi kasus tersebut dibuat aplikasi sederhana untuk mengelola proses penyewaan sekaligus menerapkan konsep-konsep Pemrograman Berorientasi Objek.
+Banyak pendaki kelompok atau rombongan membutuhkan pendataan izin masuk yang rapi serta kalkulasi biaya jaminan asuransi otomatis sebelum mendaki. Berdasarkan studi kasus tersebut dibuat aplikasi sederhana untuk mengelola proses pendaftaran sekaligus menerapkan konsep-konsep Pemrograman Berorientasi Objek.
 
 # Tujuan
 - Menerapkan seluruh konsep dasar PBO.
-- Membuat aplikasi penyewaan sederhana.
+- Membuat aplikasi registrasi pendakian sederhana.
 - Memenuhi tugas UAS PBO1.
 
 # Fitur
-- Melihat data alat.
-- Menyewa alat.
-- Menghitung total biaya sewa.
-- Menampilkan transaksi.
-- Validasi stok.
-- Validasi lama sewa.
-- Error handling.
+- Melihat data jalur pendakian dan bukit di Kalsel.
+- Mencari gunung berdasarkan wilayah kabupaten.
+- Melakukan booking/registrasi pendakian kelompok.
+- Menghitung total biaya pendaftaran otomatis (termasuk asuransi).
+- Menampilkan riwayat transaksi pendaftaran.
+- Memberikan rekomendasi alat standar berdasarkan tinggi mdpl secara fleksibel.
+- Error handling input menu dan angka.
 
 # Struktur Class
 ```text
-summitrent
-├── Alat.java
-├── Tenda.java
-├── Carrier.java
-├── Penyewa.java
-├── Transaksi.java
+muhammad_mahfudzal_farisy_2410010493_4a_pbo1
+├── JalurPendakian.java
+├── RegistrasiPendaki.java
 └── Main.java
 ```
 
 # Penjelasan Setiap Class
 
-## Alat.java
-Class induk yang menyimpan atribut kodeAlat, namaAlat, hargaSewa, dan stok. Class ini menerapkan encapsulation melalui atribut private, constructor, getter, setter, serta method tampilInfo().
+## JalurPendakian.java
+Class induk (parent class) yang menyimpan data dasar gunung meliputi namaGunung, ketinggian, lokasi, dan hargaSimaksi. Class ini menerapkan encapsulation melalui atribut private, constructor, getter, setter, serta polymorphism dasar method hitungTotalBiaya().
+```java
+public class JalurPendakian {
+    private String namaGunung;
+    private int ketinggian;
+    private String lokasi;
+    private double hargaSimaksi;
+    
+    public double hitungTotalBiaya(int jumlahPendaki) {
+        return this.hargaSimaksi * jumlahPendaki;
+    }
+}
+```
 
-## Tenda.java
-Merupakan turunan dari Alat menggunakan keyword extends. Menambahkan atribut kapasitas dan melakukan overriding terhadap method tampilInfo().
+## RegistrasiPendaki.java
+Merupakan turunan dari JalurPendakian menggunakan keyword extends (Inheritance). Menambahkan atribut namaKetua dan jumlahPendaki, serta melakukan overriding terhadap method hitungTotalBiaya() untuk menambahkan kalkulasi asuransi kelompok secara otomatis.
+```java
+public class RegistrasiPendaki extends JalurPendakian {
+    private String namaKetua;
+    private int jumlahPendaki;
 
-## Carrier.java
-Turunan dari Alat dengan atribut volume serta overriding method tampilInfo().
-
-## Penyewa.java
-Digunakan untuk menyimpan data penyewa berupa id, nama, dan nomor HP.
-
-## Transaksi.java
-Menghubungkan object Penyewa dan Alat, menghitung total pembayaran berdasarkan harga sewa × lama sewa.
+    @Override
+    public double hitungTotalBiaya(int jumlahPendaki) {
+        double biayaAsuransiWajib = 5000 * jumlahPendaki;
+        return super.hitungTotalBiaya(jumlahPendaki) + biayaAsuransiWajib;
+    }
+}
+```
 
 ## Main.java
-Berisi menu aplikasi, Scanner, array object, seleksi, perulangan, object, dan error handling.
+Berisi menu utama aplikasi, penampung objek array, Scanner input-output, seleksi percabangan, perulangan do-while, logika filter teks dinamis (.contains), dan penanganan error handling try-catch.
+```java
+public class Main {
+    public static void main(String[] args) {
+        JalurPendakian[] daftarGunung = { ... };
+        RegistrasiPendaki[] riwayatBooking = new RegistrasiPendaki[100];
+        // Perulangan do-while & Switch Case Menu
+    }
+}
+```
 
 # Implementasi Konsep PBO
 
 ## 1. Class
-Project terdiri dari enam class: Alat, Tenda, Carrier, Penyewa, Transaksi, dan Main.
+Project terdiri dari tiga class utama: JalurPendakian, RegistrasiPendaki, dan Main.
 
 ## 2. Object
 ```java
-Tenda tenda = new Tenda(...);
-Carrier carrier = new Carrier(...);
-Penyewa penyewa = new Penyewa(...);
-Transaksi transaksi = new Transaksi(...);
+RegistrasiPendaki bookingBaru = new RegistrasiPendaki(...);
 ```
-Object digunakan untuk menjalankan proses penyewaan.
+Object digunakan untuk memproses data transaksi booking pendakian yang baru diinput.
 
 ## 3. Attribute
 ```java
-private String kodeAlat;
-private String namaAlat;
-private double hargaSewa;
-private int stok;
+private String namaGunung;
+private int ketinggian;
+private String lokasi;
+private double hargaSimaksi;
 ```
-Atribut digunakan untuk menyimpan data setiap objek.
+Atribut digunakan untuk menyimpan spesifikasi data dari setiap objek gunung/jalur.
 
 ## 4. Constructor
 ```java
-public Alat(String kodeAlat,String namaAlat,double hargaSewa,int stok){ ... }
+public JalurPendakian(String namaGunung, int ketinggian, String lokasi, double hargaSimaksi){ ... }
 ```
-Constructor menginisialisasi nilai awal object.
+Constructor menginisialisasi nilai awal setiap objek saat dimasukkan ke dalam sistem.
 
 ## 5. Mutator
 ```java
-public void setStok(int stok){ this.stok = stok; }
+public void setNamaGunung(String namaGunung){ this.namaGunung = namaGunung; }
 ```
-Digunakan untuk mengubah nilai atribut.
+Digunakan untuk mengubah nilai atribut private dari luar class.
 
 ## 6. Accessor
 ```java
-public int getStok(){ return stok; }
-public double getHargaSewa(){ return hargaSewa; }
+public String getNamaGunung(){ return namaGunung; }
+public int getKetinggian(){ return ketinggian; }
 ```
-Digunakan untuk mengambil nilai atribut.
+Digunakan untuk mengambil atau membaca nilai atribut private.
 
 ## 7. Encapsulation
-Seluruh atribut dibuat `private` sehingga hanya dapat diakses melalui getter dan setter.
+Seluruh atribut pada class data dibuat `private` sehingga keamanan datanya terjaga dan hanya bisa diakses via getter/setter.
 
 ## 8. Inheritance
 ```java
-public class Tenda extends Alat
-public class Carrier extends Alat
+public class RegistrasiPendaki extends JalurPendakian
 ```
-Tenda dan Carrier mewarisi atribut dan method dari Alat.
+Class RegistrasiPendaki mewarisi seluruh atribut dan method publik dari class JalurPendakian.
 
 ## 9. Polymorphism
 ```java
 @Override
-public void tampilInfo(){ ... }
+public double hitungTotalBiaya(int jumlahPendaki){ ... }
 ```
-Method tampilInfo() dioverride agar informasi setiap alat berbeda.
+Method hitungTotalBiaya() dioverride pada subclass untuk membedakan rumus perhitungan biaya antara SIMAKSI standar dan yang sudah ditambah asuransi wajib.
 
 ## 10. Seleksi
-Menggunakan `if` untuk validasi stok alat dan lama sewa.
+Menggunakan `switch-case` untuk kontrol menu utama, `if-else` untuk filter pencarian wilayah kabupaten, serta validasi string input pada rekomendasi alat standar.
 
 ## 11. Perulangan
-Menggunakan `for` untuk menampilkan data dan `do-while` untuk menu.
+Menggunakan `for` untuk menjelajahi isi data array master/transaksi dan `do-while` untuk menjaga agar menu utama terus berjalan.
 
 ## 12. Input Output
-Menggunakan `Scanner` dan `System.out.println()`.
+Menggunakan `Scanner` untuk menangkap ketikan dari user dan `System.out.println()` untuk mencetak output ke console.
 
 ## 13. Array
 ```java
-Alat[] daftarAlat;
-Transaksi[] daftarTransaksi;
+JalurPendakian[] daftarGunung;
+RegistrasiPendaki[] riwayatBooking;
 ```
-Array digunakan untuk menyimpan banyak object.
+Array objek digunakan untuk menyimpan database list gunung di Kalsel serta menampung list riwayat pendaftaran.
 
 ## 14. Error Handling
 ```java
-try{
-   ...
-}catch(Exception e){
-   ...
-}
+try {
+    pilihan = Integer.parseInt(input.nextLine());
+} catch (NumberFormatException e) { ... }
 ```
-Menangani kesalahan input agar program tidak berhenti.
+Menangani kesalahan input tipe data (misal input huruf pada menu angka) agar program tidak mengalami crash.
 
 # Cara Menjalankan
 1. Buka project di NetBeans.
-2. Clean and Build.
+2. Pastikan susunan package sesuai.
 3. Jalankan Main.java.
-4. Gunakan menu aplikasi.
+4. Gunakan menu console aplikasi (1-6).
 
 # Usulan Nilai
 
@@ -170,6 +184,6 @@ Menangani kesalahan input agar program tidak berhenti.
 
 # Identitas Pembuat
 
-- **Nama** : Muhammad Hilman Akhyar
-- **NPM** : 2410010155
+- **Nama** : Muhammad Mahfudzal Farisy
+- **NPM** : 2410010493
 - **Kelas** : TI 4A Reg. Banjarbaru
